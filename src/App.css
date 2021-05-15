@@ -12,8 +12,37 @@ body {
   padding: 20px;
 }
 
+.app__header > h1 {
+  color: #fc3c3c;
+  font-size: 2rem;
+}
+
+.app__graph {
+  flex-grow: 1;
+}
+
+.app__graphTitle {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.app__dropdown {
+  background-color: white;
+}
+
 .app__left {
   flex: 0.9;
+}
+
+.app__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.app__right .MulCardContent-root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .app__header {

@@ -44,25 +44,29 @@ const options = {
         ],
       }
 }
-function LineGraph({casesType = 'cases'}) {
+
+
+const buildChartData = (data, casesType = 'cases') => {
+    const chartData = [];
+    let lastDataPoint;
+
+    for(let date in data.cases){
+        if(lastDataPoint) {
+            let newDataPoint = {
+                x: date,
+                y: data[casesType][date]- lastDataPoint
+            }
+            chartData.push(newDataPoint);
+        }
+        lastDataPoint = data[casesType][date];
+    };
+    return chartData;
+}
+
+
+function LineGraph({casesType = 'cases', ...props}) {
     const [data, setData] = useState({});
 
-    const buildChartData = (data, casesType = 'cases') => {
-        const chartData = [];
-        let lastDataPoint;
-
-        for(let date in data.cases){
-            if(lastDataPoint) {
-                let newDataPoint = {
-                    x: date,
-                    y: data[casesType][date]- lastDataPoint
-                }
-                chartData.push(newDataPoint);
-            }
-            lastDataPoint = data[casesType][date];
-        };
-        return chartData;
-    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,7 +82,7 @@ function LineGraph({casesType = 'cases'}) {
     }, [casesType]);
 
     return (
-        <div>
+        <div className={props.className}>
             {data?.length > 0 && (
                 <Line data={{
                 datasets: [
